@@ -39,14 +39,6 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
-    @Column(name = "senha")
-    @NotNull
-    @NotEmpty
-    @Size(min = 8, max = 20)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*([a-zA-Z])(?=.*([@#$%^&+=]).*$", message = "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial")
-    @JsonIgnore
-    private String senha;
-
     @NotBlank(message = "O telefone é obrigatório")
     @Size(min = 10, max = 20, message = "O telefone precisa ter entre 10 e 20 caracteres")
     @Pattern(regexp = "\\+?[0-9]+", message = "O telefone deve conter apenas números.")

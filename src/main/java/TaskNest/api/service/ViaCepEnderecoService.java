@@ -44,9 +44,7 @@ public class ViaCepEnderecoService {
 
             } catch (Exception e) {
                 throw new RuntimeException("Erro ao procurar o cep." + e.getMessage());
-            
             } 
-
         } else {
             throw new EntityNotFoundException("Usuário não foi encontrado.");
         }
