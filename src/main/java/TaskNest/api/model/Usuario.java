@@ -47,7 +47,7 @@ public class Usuario {
     private String telefone;
 
     //Método para validar a senha do usuário:
-    /*public boolean validarSenha(String senha) {
+    public boolean validarSenha(String senha) {
 
         boolean temComprimento = senha.length() >= 6 && senha.length() <= 8;
         boolean temCaracterEspecial = senha.matches(".*[!@#$%&*?!].*");
@@ -56,6 +56,5 @@ public class Usuario {
         boolean temLetraMaiscula = senha.matches(".*[A-Z].*");
 
         return temComprimento && temCaracterEspecial && temNumero && temLetraMinuscula && temLetraMaiscula;
-
-    }*/
+    }
 }
