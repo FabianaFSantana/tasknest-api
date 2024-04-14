@@ -48,6 +48,5 @@ public class ViaCepEnderecoService {
         } else {
             throw new EntityNotFoundException("Usuário não foi encontrado.");
         }
-    }    
-    
+    }  
 }
