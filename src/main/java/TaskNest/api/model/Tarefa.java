@@ -3,8 +3,12 @@ package TaskNest.api.model;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import TaskNest.api.constants.Prioridade;
+import TaskNest.api.constants.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,4 +43,11 @@ public class Tarefa {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeVencimento;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Prioridade prioridade;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
