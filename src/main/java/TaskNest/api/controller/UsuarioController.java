@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import TaskNest.api.model.Endereco;
 import TaskNest.api.model.Usuario;
 import TaskNest.api.repository.UsuarioRepository;
+import TaskNest.api.service.UsuarioService;
 import TaskNest.api.service.ViaCepEnderecoService;
 
 @RestController
@@ -30,14 +31,18 @@ public class UsuarioController {
     private UsuarioRepository usuariorRepository;
 
     @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
     private ViaCepEnderecoService viaCepEnderecoService;
    
 
     @PostMapping()
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<String> cadastrarUsuario(@RequestBody Usuario usuario) {
     
-        return ResponseEntity.status(HttpStatus.CREATED)
-        .body(usuariorRepository.save(usuario));
+        usuarioService.cadastrarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Usuário cadastrado com sucesso.");
     }
 
     @PostMapping("/cadastrarEndereco/{idUsuario}")
