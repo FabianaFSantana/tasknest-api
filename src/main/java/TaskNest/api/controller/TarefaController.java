@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,6 +105,38 @@ public class TarefaController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tarefa> atualizarDadosDaTarefa(@PathVariable("id") Long id,
+    @RequestBody Tarefa tarefa) {
+        Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
+
+        if (tarefOptional.isPresent()) {
+            Tarefa tarefEncont = tarefOptional.get();
+
+            tarefEncont.setTitulo(tarefa.getTitulo());
+            tarefEncont.setDescricao(tarefa.getDescricao());
+            tarefEncont.setDataDeCriacao(tarefa.getDataDeCriacao());
+            tarefEncont.setDataDeVencimento(tarefa.getDataDeVencimento());
+            tarefEncont.setPrioridade(tarefa.getPrioridade());
+            tarefEncont.setStatus(tarefa.getStatus());
+
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(tarefaRepository.save(tarefEncont));
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> exluirTarefa(@PathVariable("id") Long id) {
+
+        tarefaRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Tarefa excluída com sucesso!");
     }
 
 
