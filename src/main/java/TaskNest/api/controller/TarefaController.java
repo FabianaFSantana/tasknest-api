@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import TaskNest.api.constants.Prioridade;
 import TaskNest.api.constants.Status;
+import TaskNest.api.model.Comentario;
 import TaskNest.api.model.Tarefa;
 import TaskNest.api.repository.TarefaRepository;
 import TaskNest.api.service.ComentarioService;
@@ -117,6 +118,13 @@ public class TarefaController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/exibirComentarios/{id}")
+    public ResponseEntity<List<Comentario>> exibirListaDeComentarios(@PathVariable("id") Long id) {
+
+        List<Comentario> comentarios = comentarioService.exibirCometariosDaTarefa(id);
+        return ResponseEntity.status(HttpStatus.OK).body(comentarios);
     }
 
     @PutMapping("/{id}")

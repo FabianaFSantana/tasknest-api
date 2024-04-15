@@ -1,5 +1,6 @@
 package TaskNest.api.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,5 +44,22 @@ public class ComentarioService {
             throw new EntityNotFoundException("Tarefa não foi encontrada.");
         }
     }
+
+    public List<Comentario> exibirCometariosDaTarefa(Long id) {
+
+        Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
+
+        if (tarefOptional.isPresent()) {
+            Tarefa tarefa = tarefOptional.get();
+
+            List<Comentario> comentarios = tarefa.getComentarios();
+            return comentarios;
+            
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+
     
 }
