@@ -20,6 +20,7 @@ import TaskNest.api.constants.Prioridade;
 import TaskNest.api.constants.Status;
 import TaskNest.api.model.Tarefa;
 import TaskNest.api.repository.TarefaRepository;
+import TaskNest.api.service.ComentarioService;
 
 @RestController
 @RequestMapping("/tarefa")
@@ -28,10 +29,21 @@ public class TarefaController {
     @Autowired
     private TarefaRepository tarefaRepository;
 
+    @Autowired
+    private ComentarioService comentarioService;
+
     @PostMapping
     public ResponseEntity<Tarefa> cadastrarNovaTarefa(@RequestBody Tarefa tarefa) {
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(tarefaRepository.save(tarefa));
+    }
+
+    @PostMapping("/{id}/adicionarComentario/{idComent}")
+    public ResponseEntity<String> adicionarComentario(@PathVariable("id") Long id,
+    @PathVariable("idComent") Long idComent) {
+        comentarioService.adicionarComentarioListaDeComentariosDaTarefa(id, idComent);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Comentário adicionado à tarefa.");
     }
 
     @GetMapping

@@ -64,7 +64,6 @@ public class UsuarioController {
         .body("Tarefa adicionada à lista de tarefas do Usuario.");
     }
 
-
     @GetMapping
     public ResponseEntity<List<Usuario>> exibirListaDeUsuarios() {
         return ResponseEntity.status(HttpStatus.OK)
