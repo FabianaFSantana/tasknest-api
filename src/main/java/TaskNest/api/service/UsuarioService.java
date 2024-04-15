@@ -70,5 +70,28 @@ public class UsuarioService {
         }
     }
 
+    public void removerTarefaDaListaDeTarefas(Long idUsuario, Long id) {
+
+        Optional<Usuario> usuarOptional = usuarioRepository.findById(idUsuario);
+        if (usuarOptional.isPresent()) {
+            Usuario usuario = usuarOptional.get();
+
+            Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
+            if (tarefOptional.isPresent()) {
+                Tarefa tarefa = tarefOptional.get();
+
+                List<Tarefa> tarefas = usuario.getTarefas();
+                tarefas.remove(tarefa);
+                usuarioRepository.save(usuario);
+                
+            } else {
+                throw new EntityNotFoundException("Tarefa não foi encontrada.");
+            }
+            
+        } else {
+            throw new EntityNotFoundException("Usuário não foi encontrado.");
+        }
+    }
+
     
 }

@@ -119,6 +119,15 @@ public class UsuarioController {
         .body("Usuário excluído com sucesso.");
     }
 
+    @DeleteMapping("/{idUsuario}/removerTarefaDaListaDeUsuario/{id}")
+    public ResponseEntity<String> removerUsuarioDaLista(@PathVariable("idUsuario") Long idUsuario,
+    @PathVariable("id") Long id) {
+
+        usuarioService.removerTarefaDaListaDeTarefas(idUsuario, id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Tarefa excluída da lista de tarefas do Usuário.");
+    }
+
 
 
 
