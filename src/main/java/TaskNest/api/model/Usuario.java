@@ -1,12 +1,15 @@
 package TaskNest.api.model;
 
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -45,6 +48,9 @@ public class Usuario {
     @Size(min = 10, max = 20, message = "O telefone precisa ter entre 10 e 20 caracteres")
     @Pattern(regexp = "\\+?[0-9]+", message = "O telefone deve conter apenas números.")
     private String telefone;
+
+    @OneToMany
+    private List<Tarefa> tarefas;
 
     //Método para validar a senha do usuário:
     public boolean validarSenha(String senha) {

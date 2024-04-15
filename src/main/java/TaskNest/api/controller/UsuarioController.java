@@ -54,6 +54,17 @@ public class UsuarioController {
         .body("Endereço cadastrado com sucesso!"); 
     }
 
+    @PostMapping("/{idUsuario}/adicionarTarefaNaLista/{id}")
+    public ResponseEntity<String> adicionarTarefaListaUsuario(@PathVariable("idUsuario") Long idUsuario,
+    @PathVariable("id") Long id) {
+
+        usuarioService.adicionarTarefaNaListaDoUsuario(idUsuario, id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Tarefa adicionada à lista de tarefas do Usuario.");
+    }
+
+
+
     @GetMapping
     public ResponseEntity<List<Usuario>> exibirListaDeUsuarios() {
         return ResponseEntity.status(HttpStatus.OK)
