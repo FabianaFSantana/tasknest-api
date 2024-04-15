@@ -1,5 +1,6 @@
 package TaskNest.api.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,18 @@ public class UsuarioService {
             
         } else {
             throw new EntityNotFoundException("Usuário não foi encontrado.");
+        }
+    }
+
+    public List<Tarefa> exibirListaDeTarefasDoUsuario(Long idUsuario) {
+        Optional<Usuario> usuarOptional = usuarioRepository.findById(idUsuario);
+
+        if (usuarOptional.isPresent()) {
+            Usuario usuario = usuarOptional.get();
+            return usuario.getTarefas();
+            
+        } else {
+            return Collections.emptyList();
         }
     }
 

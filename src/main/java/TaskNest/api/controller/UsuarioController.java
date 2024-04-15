@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import TaskNest.api.model.Endereco;
+import TaskNest.api.model.Tarefa;
 import TaskNest.api.model.Usuario;
 import TaskNest.api.repository.UsuarioRepository;
 import TaskNest.api.service.UsuarioService;
@@ -64,7 +65,6 @@ public class UsuarioController {
     }
 
 
-
     @GetMapping
     public ResponseEntity<List<Usuario>> exibirListaDeUsuarios() {
         return ResponseEntity.status(HttpStatus.OK)
@@ -75,6 +75,13 @@ public class UsuarioController {
     public ResponseEntity<Optional<Usuario>> buscarUsuarioPeloId(@PathVariable("idUsuario") Long idUsuario) {
         return ResponseEntity.status(HttpStatus.OK)
         .body(usuariorRepository.findById(idUsuario));
+    }
+
+    @GetMapping("/exibirListaDeTarefas/{idUsuario}")
+    public ResponseEntity<List<Tarefa>> exibirListaDeTarefas(@PathVariable("idUsuario") Long idUsuario) {
+
+        List<Tarefa> tarefas = usuarioService.exibirListaDeTarefasDoUsuario(idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(tarefas);
     }
 
     @PutMapping("/{idUsuario}")
