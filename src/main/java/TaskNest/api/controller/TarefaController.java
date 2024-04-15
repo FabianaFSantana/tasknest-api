@@ -159,8 +159,14 @@ public class TarefaController {
         .body("Tarefa excluída com sucesso!");
     }
 
+    @DeleteMapping("/{id}/removerComentarioDaTarefa/{idComent}")
+    public ResponseEntity<String> excluirComentarioDaTarefa(@PathVariable("id") Long id,
+    @PathVariable("idComent") Long idComent) {
 
-
+        comentarioService.removerComentarioDaTarefa(id, idComent);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Comentário removido da tarefa.");
+    }
 
 
 

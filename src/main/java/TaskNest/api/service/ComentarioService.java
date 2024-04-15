@@ -60,6 +60,29 @@ public class ComentarioService {
         }
     }
 
+    public void removerComentarioDaTarefa(Long id, Long idComent) {
+
+        Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
+        if (tarefOptional.isPresent()) {
+            Tarefa tarefa = tarefOptional.get();
+
+            Optional<Comentario> comentOptional = comentarioRepository.findById(idComent);
+            if (comentOptional.isPresent()) {
+                Comentario comentario = comentOptional.get();
+
+                List<Comentario> comentarios = tarefa.getComentarios();
+                comentarios.remove(comentario);
+                tarefaRepository.save(tarefa);
+                
+            } else {
+                throw new EntityNotFoundException("Comentário não encontrado.");
+            }
+            
+        } else {
+            throw new EntityNotFoundException("Tarefa não encontrada.");
+        }
+    }
+
 
     
 }
