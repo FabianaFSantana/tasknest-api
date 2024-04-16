@@ -22,6 +22,7 @@ import TaskNest.api.model.Comentario;
 import TaskNest.api.model.Tarefa;
 import TaskNest.api.repository.TarefaRepository;
 import TaskNest.api.service.ComentarioService;
+import TaskNest.api.service.TarefaService;
 
 @RestController
 @RequestMapping("/tarefa")
@@ -32,6 +33,9 @@ public class TarefaController {
 
     @Autowired
     private ComentarioService comentarioService;
+
+    @Autowired
+    private TarefaService tarefaService;
 
     @PostMapping
     public ResponseEntity<Tarefa> cadastrarNovaTarefa(@RequestBody Tarefa tarefa) {
@@ -53,7 +57,7 @@ public class TarefaController {
         .body(tarefaRepository.findAll());
     }
 
-    @GetMapping("/bucarPeloId/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Tarefa>> buscarTarefaPeloId(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK)
         .body(tarefaRepository.findById(id));
@@ -125,6 +129,16 @@ public class TarefaController {
 
         List<Comentario> comentarios = comentarioService.exibirCometariosDaTarefa(id);
         return ResponseEntity.status(HttpStatus.OK).body(comentarios);
+    }
+
+    @GetMapping("{idUsuario}/enviarSmsTarefa/{id}")
+    public ResponseEntity<String> enviarNotificacaoTarefaPorSms(@PathVariable("idUsuario") Long idUsuario,
+    @PathVariable("id") Long id) {
+
+        tarefaService.enviarNotificacaoDeTarefaParaUsuario(idUsuario, id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Tarefa enviada por SMS.");
+
     }
 
     @PutMapping("/{id}")
