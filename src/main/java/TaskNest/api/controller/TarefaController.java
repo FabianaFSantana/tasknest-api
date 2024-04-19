@@ -141,6 +141,15 @@ public class TarefaController {
 
     }
 
+    @GetMapping("{idUsuario}/enviarEmailTarefa/{id}")
+    public ResponseEntity<String> enviarNotificacaoTarefaPorEmail(@PathVariable("idUsuario") Long idUsuario,
+    @PathVariable("id") Long id) {
+        tarefaService.enviarNotificacaoTarefaPorEmail(idUsuario, id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Email enviado com sucesso!");
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Tarefa> atualizarDadosDaTarefa(@PathVariable("id") Long id,
     @RequestBody Tarefa tarefa) {
