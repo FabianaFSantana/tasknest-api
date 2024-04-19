@@ -135,11 +135,20 @@ public class TarefaController {
     public ResponseEntity<String> enviarNotificacaoTarefaPorSms(@PathVariable("idUsuario") Long idUsuario,
     @PathVariable("id") Long id) {
 
-        tarefaService.enviarNotificacaoDeTarefaParaUsuario(idUsuario, id);
+        tarefaService.enviarNotificacaoDeTarefaPorSms(idUsuario, id);
         return ResponseEntity.status(HttpStatus.OK)
         .body("Tarefa enviada por SMS.");
 
     }
+
+    @GetMapping("{idUsuario}/enviarEmailTarefa/{id}")
+    public ResponseEntity<String> enviarNotificacaoTarefaPorEmail(@PathVariable("idUsuario") Long idUsuario,
+    @PathVariable("id") Long id) {
+        tarefaService.enviarNotificacaoTarefaPorEmail(idUsuario, id);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Email enviado com sucesso!");
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Tarefa> atualizarDadosDaTarefa(@PathVariable("id") Long id,

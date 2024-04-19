@@ -23,7 +23,10 @@ public class TarefaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public void enviarNotificacaoDeTarefaParaUsuario(Long idUsuario, Long id) {
+    @Autowired
+    private EmailTarefaService emailTarefaService;
+
+    public void enviarNotificacaoDeTarefaPorSms(Long idUsuario, Long id) {
 
         Optional<Usuario> usuarOptional = usuarioRepository.findById(idUsuario);
         Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
@@ -36,6 +39,21 @@ public class TarefaService {
             
         } else {
             throw new EntityNotFoundException("Usuário ou tarefa não encontrada.");
+        }
+    }
+
+    public void enviarNotificacaoTarefaPorEmail(Long idUsuario, Long id) {
+        Optional<Usuario> usuarOptional = usuarioRepository.findById(idUsuario);
+        Optional<Tarefa> tarefOptional = tarefaRepository.findById(id);
+
+        if (usuarOptional.isPresent() && tarefOptional.isPresent()) {
+            Usuario usuario = usuarOptional.get();
+            Tarefa tarefa = tarefOptional.get();
+
+            emailTarefaService.enviarNotificacaoTarefaPorEmail(usuario, tarefa);
+            
+        } else {
+            throw new EntityNotFoundException("Usuário ou tarefa não encontrados.");
         }
     }
 }
