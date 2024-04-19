@@ -135,7 +135,7 @@ public class TarefaController {
     public ResponseEntity<String> enviarNotificacaoTarefaPorSms(@PathVariable("idUsuario") Long idUsuario,
     @PathVariable("id") Long id) {
 
-        tarefaService.enviarNotificacaoDeTarefaParaUsuario(idUsuario, id);
+        tarefaService.enviarNotificacaoDeTarefaPorSms(idUsuario, id);
         return ResponseEntity.status(HttpStatus.OK)
         .body("Tarefa enviada por SMS.");
 
